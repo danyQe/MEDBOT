@@ -1,0 +1,152 @@
+  body, html {
+            width: 100%;
+            margin: 0;
+        }
+
+        body {
+            background-image: url("{{ url_for('static', filename='5.jpg')}}");
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+        }
+
+        #microphone-container {
+            height: 60vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: nowrap;
+            flex-direction: column-reverse;
+            align-content: space-around;
+        }
+
+        .microphone {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: green url("{{ url_for('static', filename='microphone.png')}}") center/cover;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .microphone:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        #voice-wave-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            width: 200px;
+            height: 80px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 25px;
+            padding: 9px;
+            border: 2px solid #ccc;
+            border-radius: 15px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.7);
+        }
+
+        #text-button {
+            height: 40px;
+            background-color: rgb(49, 246, 15);
+            padding: 10px;
+            text-align: center;
+            font-size: 18px;
+            border-radius: 12px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        #text-button:hover {
+            background-color: aquamarine;
+        }
+
+        #bars {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: none;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            justify-content: space-around;
+            background-color: black;
+            padding: 5px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            font-size: 25px;
+        }
+
+        nav a:hover {
+            color: #3c3b3bdb;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #close-button {
+            display: none;
+            height: 50px;
+            width: 50px;
+            background-color: red;
+            text-align: center;
+            text-decoration: double;
+            border-radius: 50%;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+            margin-top: 40px;
+            font-weight: bolder;
+        }
+
+        .chat-box {
+            background-color: #fbfbfb;
+            color: black;
+        }
+
+        .bar {
+            background: #fbfbfb;
+            bottom: 1px;
+            height: 3px;
+            width: 10px;
+            margin: 0px 4px;
+            border-radius: 5px;
+            animation: sound 0ms -600ms linear infinite alternate;
+        }
+
+        @keyframes sound {
+            0% {
+                opacity: .35;
+                height: 3px;
+            }
+            100% {
+                opacity: 1;
+                height: 70px;
+            }
+        }
+
+        .bar:nth-child(1) { animation-duration: 474ms; }
+        .bar:nth-child(2) { animation-duration: 433ms; }
+        .bar:nth-child(3) { animation-duration: 407ms; }
+        .bar:nth-child(4) { animation-duration: 458ms; }
+        .bar:nth-child(5) { animation-duration: 400ms; }
+        .bar:nth-child(6) { animation-duration: 427ms; }
+        .bar:nth-child(7) { animation-duration: 441ms; }
+        .bar:nth-child(8) { animation-duration: 419ms; }
+        .bar:nth-child(9) { animation-duration: 487ms; }
+        .bar:nth-child(10) { animation-duration: 442ms; }

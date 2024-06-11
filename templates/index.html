@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image:url("{{ url_for('static', filename='med.jpeg') }}");
+            background-repeat:no-repeat;
+            background-size: cover;
+        }
+
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffffa7;
+            margin-bottom: 10px;
+        }
+
+        .header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .chat-box {
+            padding: 40px;
+            overflow-y: auto;
+            height: 300px;
+        }
+
+        .user-message, .bot-message {
+            max-width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 10px;
+        }
+
+        .user-message {
+            background-color: #DCF8C6;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #E5E5EA;
+            align-self: flex-start;
+        }
+
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            /* border-top: 1px solid #ccc; */
+        }
+
+        input[type="text"] {
+            width: 50%;
+            height: 20px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            font-size: 16px;
+            margin-left:300px;
+        }
+
+        #text-button {
+            width: 10%;
+            height: 40px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right:160px;
+        }
+
+
+.loading-wave {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 50px;
+  display: none;
+  align-items: center;
+}
+
+.obj {
+  width: 6px;
+  height: 0px;
+  background: #17a2b8;
+  margin: 0 3px;
+  border-radius: 10px;
+  animation: loading 1.2s infinite;
+  
+}
+
+.obj:nth-child(2){
+  animation-delay: 0.15s;
+}
+.obj:nth-child(3){
+  animation-delay: 0.3s;
+}
+.obj:nth-child(4){
+  animation-delay: 0.45s;
+}
+.obj:nth-child(5){
+  animation-delay: 0.6s;
+}
+.obj:nth-child(6){
+  animation-delay: 0.75s;
+}
+.obj:nth-child(7){
+  animation-delay: 0.9s;
+}
+.obj:nth-child(8){
+  animation-delay: 1.05s;
+}
+
+@keyframes loading {
+  0% {
+    height: 0;
+  }
+  50% {
+    height: 50px;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+    </style>
+    <title>Meditation Chatbot</title>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="header">
+            <h1>MEDITATION BOT</h1>
+        </div>
+        <div class="chat-box" id="chat-box">
+            <!-- Display previous chat history here -->
+            <!-- <div class="user-message"></div>
+            <div class="bot-message"></div> -->
+            <!-- End of previous chat history -->
+            <div class="loading-wave" id="loading-wave">
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                    <div class="obj"></div>
+                  </div>
+            </div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="Type a message">
+            <button type="button" id="text-button">Send</button>
+        </div>
+    </div>
+    <script>
+        const chatBoxElement = document.getElementById('chat-box');
+        const userInputElement = document.getElementById('user-input');
+        const textButtonElement = document.getElementById('text-button');
+        const loadingWave = document.getElementById('loading-wave');
+
+        textButtonElement.addEventListener('click', function () {
+            sendMessage();
+        });
+
+        userInputElement.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Function to initialize the chat history
+        function initChatHistory() {
+            addBotMessage("Hi there! How can I assist you with meditation today?");
+            // Add more messages if needed
+        }
+
+        // Function to add a user message to the chat
+        function addUserMessage(message) {
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'user-message';
+            userMessageElement.innerHTML = message;
+            chatBoxElement.appendChild(userMessageElement);
+            chatBoxElement.scrollTop = chatBoxElement.scrollHeight;
+        }
+
+        // Function to add a bot message to the chat
+        function addBotMessage(message) {
+            const botMessageElement = document.createElement('div');
+            botMessageElement.className = 'bot-message';
+            botMessageElement.innerHTML = message;
+            chatBoxElement.appendChild(botMessageElement);
+            chatBoxElement.scrollTop = chatBoxElement.scrollHeight;
+        }
+
+        // Initialize chat history on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            initChatHistory();
+        });
+
+        function sendMessage() {
+            const userMessage = userInputElement.value.trim();
+            if (userMessage !== '') {
+                addUserMessage(userMessage);
+
+                loadingWave.style.display = 'flex';
+
+                // Make an asynchronous request to the server
+                fetch('/ask', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `user_message=${encodeURIComponent(userMessage)}`,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Update the chat box with the bot's response
+                        const botMessage = data.bot_reply.join('<br>');
+                        addBotMessage(botMessage);
+                    })
+                    .catch(error => console.error('Error:', error))
+                    .finally(() => {
+                        // Hide the loading wave and clear the input
+                        loadingWave.style.display = 'none';
+                        userInputElement.value = '';
+                    });
+            }
+        }
+    </script>
+</body>
+</html>

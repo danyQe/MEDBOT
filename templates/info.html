@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meditation Info</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+</head>
+<body>
+    <h1>Meditation Info</h1>
+    <h2>{{ meditation_type }}</h2>
+    <p><strong>Description:</strong> {{ info['description'][0] }}</p>
+    
+    <h3>Steps:</h3>
+    <ul>
+        {% for step in info['steps'] %}
+            <li>{{ step }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Benefits:</h3>
+    <ul>
+        {% for benefit in info['benefits'] %}
+            <li>{{ benefit }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

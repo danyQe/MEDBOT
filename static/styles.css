@@ -1,0 +1,64 @@
+/* Reset some default styles */
+body, h1, h2, h3, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply a background color */
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+h1 {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style the main content */
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    /* background-color: #fff; */
+    padding: 20px;
+    border-radius: 5px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); */
+}
+
+/* Style the meditation type title */
+h2 {
+    color: #333;
+}
+
+/* Style the lists */
+ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Style the list items */
+li {
+    margin-bottom: 10px;
+}
+
+/* Style the benefits section */
+h3 {
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Style the footer */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #888;
+    font-size: 14px;
+}
+label
+{
+  font-size:30px;
+   
+}
